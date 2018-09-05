@@ -26,6 +26,10 @@ class ImageController extends Controller
                 into the public/storage (this is not in the storage careful) */
         }
 
+        $request->user()->avatar = $imagename;
+        $request->user()->save();
+        return back();
+
         return 'done';
     }
 }

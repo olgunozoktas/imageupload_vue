@@ -12,7 +12,14 @@
 */
 
 Route::get('/', function () {
-    return view('app');
+    return view('welcome');
 });
 
 Route::post('upload', 'ImageController@upload')->name('upload');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
