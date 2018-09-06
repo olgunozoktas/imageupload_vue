@@ -16,8 +16,9 @@
 
         data() {
             return {
-                avatar: this.user.avatar,
+                avatar: `storage/${this.user.image}`,
                 loaded: false,
+                file: null,
             }
         },
 
@@ -25,14 +26,19 @@
 
             GetImage(e) {
                 let image = e.target.files[0];
-                this.read(image);
+                this.read(image); //to put image to image tag
+                let form = new FormData(); //javascript data
+                form.append('image',image);
+                this.file = form;
+                console.log(this.file);
             },
 
             upload() {
-                axios.post('/upload', { 'image': this.avatar }).then(() => {
+                axios.post('/saveImage', this.file).then(() => {
                     this.$toasted.show('Avatar is Uploaded!', {
                         type: 'success',
-                    })
+                    }),
+                    this.loaded = false;
                 });
             },
 

@@ -1,4 +1,4 @@
-# How to Show User Image After Logged In?
+# Create Custom Vue Component to Upload Image
 
 Step 1: Create Authentication Files using default laravel auth
 
@@ -43,6 +43,10 @@ Later on copy the all elements from app.blade.php and put them to the home.blade
                                     @endforeach 
                                 @endif
                                 <upload-form></upload-form>
+                                /* ...
+                                    <img src="storage/{{auth()->user()->avatar}}" alt="Image">
+                                    If user logged in then it shows the image
+                                */
                             </div>
                         </div>
                     </div>
@@ -118,3 +122,24 @@ Basically it will get this component.
 and then we have added to the app object as an components: { uploadForm }
 
 So that means if we use **upload-form** tags in the html tags which has id app then it will be placed there.
+
+Step 4: Lets add a functionality to the ImageController.php to add the image to the authenticated user in db
+
+Basically whenever user sent the request to he upload function in the /upload url and in the ImageController.php we want to save the image name and extension to the database to user's avatar column.
+
+Its very easy and lets add those lines to the upload function
+
+~~~~
+
+public function upload(ImageRequest $request) {
+
+	....
+
+        $request->user()->avatar = $imagename;
+        $request->user()->save();
+        return back();
+}
+
+~~~~
+
+Whenever a request is sent from the authorized person actually user id and other informations as well sending int he request so thats why we just said $request->user()->avatar = $imagename and etc ...

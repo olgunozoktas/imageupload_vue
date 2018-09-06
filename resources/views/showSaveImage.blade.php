@@ -26,7 +26,7 @@
                                         <span class="text-danger">{{$error}}</span>
                                     @endforeach 
                                 @endif
-                                <upload-form :user="{{auth()->user()}}"></upload-form>
+                                <save-image :user="{{auth()->user()}}"></save-image>
                             </div>
                         </div>
                     </div>
